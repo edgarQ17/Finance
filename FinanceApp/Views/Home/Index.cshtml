@@ -16,23 +16,19 @@
 
 <script>
   const ctx = document.getElementById('myChart');
+  fetch('/Expenses/GetChart')
+        .then(response => response.json())
+        .then(data =>
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+            labels: data.map(d=> d.category),
+            datasets: [{
+                data: data.map(d => d.total)
+            }]
+            }
+        )
+  
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
   });
 </script>
