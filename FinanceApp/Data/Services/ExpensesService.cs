@@ -22,4 +22,17 @@ public class ExpensesService : IExpensesService
         var expenses = await _context.Expenses.ToListAsync();
             return expenses;
     }
+
+    public IQueryable getChartData()
+    {
+        var data = _context.Expenses
+                .GroupBy(e => e.Category)
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    Total = g.Sum(e => e.Amount)
+
+                });
+        return data;
+    }
 }

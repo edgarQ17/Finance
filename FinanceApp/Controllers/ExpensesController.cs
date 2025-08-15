@@ -20,12 +20,12 @@ namespace FinanceApp.Controllers
             return View(expenses);
         }
 
-         public IActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-         public async Task<IActionResult> Create(Expense expense)
+        public async Task<IActionResult> Create(Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -34,6 +34,12 @@ namespace FinanceApp.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public IActionResult getChart()
+        {
+            var data = _expensesService.getChartData();
+            return Json(data);
         }
     }
 }
